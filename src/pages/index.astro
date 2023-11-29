@@ -1,32 +1,14 @@
 ---
 import { Image } from "astro:assets";
 
-import Favicon from "@/components/favicon.tsx";
+import Bookmarks from "@/components/bookmarks-wrapper.tsx";
+import Tag from "@/components/tag.astro";
 
-import { client, gql } from "@/lib/urql";
+import { getAllBookmarks, getAllTags } from "@/lib/queries";
 
 import logo from "../assets/logo.svg";
 
-type Bookmark = {
-  name: string;
-  url: string;
-  description?: string;
-};
-
-const { data, error } = await client
-  .query<{ bookmarks: Bookmark[] }>(
-    gql`
-      {
-        bookmarks {
-          name
-          url
-          description
-        }
-      }
-    `,
-    {},
-  )
-  .toPromise();
+const { data: tags, error: errorFetchingTags } = await getAllTags();
 ---
 
 <html lang="en">
@@ -41,7 +23,7 @@ const { data, error } = await client
     <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
     <title>The Observatory</title>
   </head>
-  <body class="bg-black/95">
+  <body class="bg-[#020013]">
     <header>
       <div class="mx-auto w-full justify-center">
         <div class="mx-auto max-w-4xl px-8">
@@ -67,34 +49,15 @@ const { data, error } = await client
             days. I’ve been maintaining a list of my own for quite some time
             now, and below you’ll see everything I’ve bookmarked over the years.
           </p>
-          <ul
-            role="list"
-            class="mt-6 grid grid-cols-1 justify-normal gap-12 py-6 sm:grid-cols-3"
+          <div
+            class="scroll-hidden mx-auto flex w-full max-w-4xl items-center gap-2 overflow-y-auto whitespace-nowrap px-8 py-4"
           >
             {
-              !error &&
-                data?.bookmarks &&
-                data?.bookmarks.map(({ description, name, url }) => (
-                  <li class="select-none">
-                    <a class="focus:outline-none" href={url}>
-                      <div class="-m-2 flex items-center space-x-3 rounded-xl p-3 transition-colors focus-within:ring-2 focus-within:ring-indigo-500 hover:bg-slate-800">
-                        <div>
-                          <Favicon alt={url} favicon={url} client:visible />
-                        </div>
-                        <div>
-                          <h3 class="line-clamp-2 text-sm font-medium text-sky-50/90">
-                            {name}
-                          </h3>
-                          <p class="mt-1 text-sm text-slate-500">
-                            {description}
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                ))
+              !(errorFetchingTags && tags?.tags) &&
+                tags?.tags.map(tag => <Tag tag={tag} />)
             }
-          </ul>
+          </div>
+          <Bookmarks client:load />
         </div>
       </section>
     </main>

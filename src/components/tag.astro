@@ -1,0 +1,31 @@
+---
+import type { Tag } from "@/lib/shared/types";
+
+type Props = {
+  tag: Tag;
+};
+
+const {
+  tag: { value },
+} = Astro.props;
+---
+
+<button
+  id={value}
+  class="inline-flex transform items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold capitalize text-neutral-950/80 transition duration-1000 ease-in-out focus:text-neutral-950/80 focus:shadow-none focus:outline-none focus:ring-2 focus:ring-offset-2"
+>
+  {value === "NONE" ? "ALL" : value}
+</button>
+
+<script>
+  import { setSelectedTag } from "src/store";
+
+  const $tagButtons = document.querySelectorAll(
+    "button",
+  ) as NodeListOf<HTMLButtonElement>;
+  [...$tagButtons].map($el =>
+    $el.addEventListener("click", () => {
+      setSelectedTag($el.id);
+    }),
+  );
+</script>

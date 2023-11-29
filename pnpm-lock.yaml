@@ -20,6 +20,9 @@ dependencies:
   '@clerk/clerk-react':
     specifier: ^4.28.1
     version: 4.28.1(react@18.2.0)
+  '@nanostores/react':
+    specifier: ^0.7.1
+    version: 0.7.1(nanostores@0.9.5)(react@18.2.0)
   '@prisma/client':
     specifier: 5.6.0
     version: 5.6.0(prisma@5.6.0)
@@ -38,6 +41,12 @@ dependencies:
   astro:
     specifier: ^3.6.1
     version: 3.6.1(@types/node@20.10.0)(typescript@5.3.2)
+  clsx:
+    specifier: ^2.0.0
+    version: 2.0.0
+  nanostores:
+    specifier: ^0.9.5
+    version: 0.9.5
   react:
     specifier: ^18.0.0
     version: 18.2.0
@@ -47,6 +56,9 @@ dependencies:
   swr:
     specifier: ^2.2.4
     version: 2.2.4(react@18.2.0)
+  tailwind-merge:
+    specifier: ^2.0.0
+    version: 2.0.0
   tailwindcss:
     specifier: ^3.0.24
     version: 3.3.5(ts-node@10.9.1)
@@ -1150,6 +1162,17 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@nanostores/react@0.7.1(nanostores@0.9.5)(react@18.2.0):
+    resolution: {integrity: sha512-EXQg9N4MdI4eJQz/AZLIx3hxQ6BuBmV4Q55bCd5YCSgEOAW7tGTsIZxpRXxvxLXzflNvHTBvfrDNY38TlSVBkQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0
+      react: '>=18.0.0'
+    dependencies:
+      nanostores: 0.9.5
+      react: 18.2.0
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3596,6 +3619,11 @@ packages:
     hasBin: true
     dev: false
 
+  /nanostores@0.9.5:
+    resolution: {integrity: sha512-Z+p+g8E7yzaWwOe5gEUB2Ox0rCEeXWYIZWmYvw/ajNYX8DlXdMvMDj8DWfM/subqPAcsf8l8Td4iAwO1DeIIRQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    dev: false
+
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     requiresBuild: true
@@ -4630,6 +4658,12 @@ packages:
 
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+    dev: false
+
+  /tailwind-merge@2.0.0:
+    resolution: {integrity: sha512-WO8qghn9yhsldLSg80au+3/gY9E4hFxIvQ3qOmlpXnqpDKoMruKfi/56BbbMg6fHTQJ9QD3cc79PoWqlaQE4rw==}
+    dependencies:
+      '@babel/runtime': 7.23.4
     dev: false
 
   /tailwindcss@3.3.5(ts-node@10.9.1):

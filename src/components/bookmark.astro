@@ -1,0 +1,31 @@
+---
+import Favicon from "@/components/favicon.tsx";
+
+import type { Bookmark } from "@/lib/shared/types";
+
+type Props = {
+  bookmark: Bookmark;
+};
+
+const {
+  bookmark: { description, name, url },
+} = Astro.props;
+---
+
+<a class="focus:outline-none" href={url}>
+  <div
+    class="-m-2 flex items-center space-x-3 rounded-xl p-3 transition-colors focus-within:ring-2 focus-within:ring-indigo-500 hover:bg-slate-800"
+  >
+    <div>
+      <Favicon alt={url} favicon={url} client:visible />
+    </div>
+    <div>
+      <h3 class="line-clamp-2 text-sm font-medium text-sky-50/90">
+        {name}
+      </h3>
+      <p class="mt-1 text-sm text-slate-500">
+        {description}
+      </p>
+    </div>
+  </div>
+</a>
