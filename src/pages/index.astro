@@ -1,16 +1,120 @@
 ---
+import { Image } from "astro:assets";
 
+import Favicon from "@/components/favicon.tsx";
+
+import { client, gql } from "@/lib/urql";
+
+import logo from "../assets/logo.svg";
+
+type Bookmark = {
+  name: string;
+  url: string;
+  description?: string;
+};
+
+const { data, error } = await client
+  .query<{ bookmarks: Bookmark[] }>(
+    gql`
+      {
+        bookmarks {
+          name
+          url
+          description
+        }
+      }
+    `,
+    {},
+  )
+  .toPromise();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <title>The Observatory</title>
+  </head>
+  <body class="bg-black/95">
+    <header>
+      <div class="mx-auto w-full justify-center">
+        <div class="mx-auto max-w-4xl px-8">
+          <div class="border-b border-slate-300/30 py-4">
+            <a href="https://lexingtonthemes.com/" class="mx-auto">
+              <p class="text-xs font-semibold leading-6 text-purple-500">
+                The Observatory&nbsp;&mdash;&nbsp;a public directory of my
+                bookmarks (constantly updated!)
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="mx-auto max-w-4xl px-8 py-12 lg:py-24">
+          <h2 class="text-xl font-bold leading-6 text-sky-50/90 lg:text-4xl">
+            The Observatory
+          </h2>
+          <p class="mt-1 text-base text-sky-50/80">
+            There’s a lot of products (DBaaS, FaaS, IaaS, PaaS, SaaS) these
+            days. I’ve been maintaining a list of my own for quite some time
+            now, and below you’ll see everything I’ve bookmarked over the years.
+          </p>
+          <ul
+            role="list"
+            class="mt-6 grid grid-cols-1 justify-normal gap-12 py-6 sm:grid-cols-3"
+          >
+            {
+              !error &&
+                data?.bookmarks &&
+                data?.bookmarks.map(({ description, name, url }) => (
+                  <li class="select-none">
+                    <a class="focus:outline-none" href={url}>
+                      <div class="-m-2 flex items-center space-x-3 rounded-xl p-3 transition-colors focus-within:ring-2 focus-within:ring-indigo-500 hover:bg-slate-800">
+                        <div>
+                          <Favicon alt={url} favicon={url} client:visible />
+                        </div>
+                        <div>
+                          <h3 class="line-clamp-2 text-sm font-medium text-sky-50/90">
+                            {name}
+                          </h3>
+                          <p class="mt-1 text-sm text-slate-500">
+                            {description}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer class="border-t border-slate-300/30">
+      <div class="mx-auto max-w-4xl px-8 py-12 text-lg text-black">
+        <div class="grid-cols-1border-black/10 grid gap-x-8 gap-y-6">
+          <div class="text-black xl:col-span-3">
+            <Image alt="Website logo" src={logo} class="h-12 w-12" />
+          </div>
+          <div>
+            <p class="text-sm text-slate-500">
+              &copy; The Observatory. All rights reserved. A project by <a
+                class="text-sm transition-colors hover:text-purple-500"
+                href="https://kimchiii.space/">Kunall Banerjee</a
+              >. This website was built with Astro &amp; Tailwind. Crafted in
+              Vancouver, Canada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
