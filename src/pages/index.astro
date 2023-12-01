@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import Bookmarks from "@/components/bookmarks-wrapper.tsx";
 import Tag from "@/components/tag.astro";
 
-import { getAllBookmarks, getAllTags } from "@/lib/queries";
+import { getAllTags } from "@/lib/queries";
 
 import logo from "../assets/logo.svg";
 
@@ -28,7 +28,7 @@ const { data: tags, error: errorFetchingTags } = await getAllTags();
       <div class="mx-auto w-full justify-center">
         <div class="mx-auto max-w-4xl px-8">
           <div class="border-b border-slate-300/30 py-4">
-            <a href="https://lexingtonthemes.com/" class="mx-auto">
+            <a href="https://observatory.kimchiii.space" class="mx-auto">
               <p class="text-xs font-semibold leading-6 text-purple-500">
                 The Observatory&nbsp;&mdash;&nbsp;a public directory of my
                 bookmarks (constantly updated!)
@@ -50,7 +50,7 @@ const { data: tags, error: errorFetchingTags } = await getAllTags();
             now, and below you’ll see everything I’ve bookmarked over the years.
           </p>
           <div
-            class="scroll-hidden mx-auto flex w-full max-w-4xl items-center gap-2 overflow-y-auto whitespace-nowrap px-8 py-4"
+            class="mx-auto flex w-full max-w-4xl items-center gap-2 overflow-x-auto whitespace-nowrap px-8 py-4"
           >
             {
               !(errorFetchingTags && tags?.tags) &&
@@ -62,9 +62,9 @@ const { data: tags, error: errorFetchingTags } = await getAllTags();
       </section>
     </main>
     <footer class="border-t border-slate-300/30">
-      <div class="mx-auto max-w-4xl px-8 py-12 text-lg text-black">
-        <div class="grid-cols-1border-black/10 grid gap-x-8 gap-y-6">
-          <div class="text-black xl:col-span-3">
+      <div class="mx-auto max-w-4xl px-8 py-12 text-lg">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-6 border-black/10">
+          <div class="xl:col-span-3">
             <Image alt="Website logo" src={logo} class="h-12 w-12" />
           </div>
           <div>
