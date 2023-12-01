@@ -27,6 +27,7 @@ export async function getAllTags() {
       gql`
         {
           tags {
+            comment
             value
           }
         }

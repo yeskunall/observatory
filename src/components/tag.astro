@@ -1,4 +1,6 @@
 ---
+import { enumToValue } from "@/lib/shared/tags";
+
 import type { Tag } from "@/lib/shared/types";
 
 type Props = {
@@ -6,15 +8,16 @@ type Props = {
 };
 
 const {
-  tag: { value },
+  tag: { comment, value },
 } = Astro.props;
 ---
 
 <button
   id={value}
-  class="inline-flex transform items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold capitalize text-neutral-950/80 transition duration-1000 ease-in-out focus:text-neutral-950/80 focus:shadow-none focus:outline-none focus:ring-2 focus:ring-offset-2"
+  title={comment}
+  class="inline-flex transform items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold text-neutral-950/80 transition duration-1000 ease-in-out focus:text-neutral-950/80 focus:shadow-none focus:outline-none focus:ring-2 focus:ring-offset-2"
 >
-  {value === "NONE" ? "ALL" : value}
+  {enumToValue(value)}
 </button>
 
 <script>
